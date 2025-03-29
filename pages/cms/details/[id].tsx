@@ -19,13 +19,15 @@ export default function ProductDetails() {
     return (
       <Box
         sx={{
-          height: "100vh",
+          minHeight: "100vh",
           width: "100vw",
-          background: "linear-gradient(135deg, rgba(0,0,0,0.95), rgba(30,30,30,0.95))",
+          background:
+            "linear-gradient(135deg, rgba(0,0,0,0.95), rgba(30,30,30,0.95))",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           backdropFilter: "blur(8px)",
+          p: { xs: 2, sm: 3 },
         }}
       >
         <CircularProgress sx={{ color: "#fff" }} />
@@ -42,14 +44,15 @@ export default function ProductDetails() {
   return (
     <Box
       sx={{
-        height: "100vh",
+        minHeight: "100vh",
         width: "100vw",
-        background: "linear-gradient(135deg, rgba(0,0,0,0.95), rgba(30,30,30,0.95))",
+        background:
+          "linear-gradient(135deg, rgba(0,0,0,0.95), rgba(30,30,30,0.95))",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         backdropFilter: "blur(8px)",
-        padding: 2,
+        p: { xs: 2, sm: 3 },
       }}
     >
       <motion.div
@@ -59,17 +62,25 @@ export default function ProductDetails() {
       >
         <Paper
           sx={{
-            p: 4,
-            maxWidth: 500,
+            p: { xs: 2, sm: 4 },
+            width: { xs: "90%", sm: 500 },
             textAlign: "center",
             borderRadius: 3,
-            backgroundColor: "rgba(0, 0, 0, 0.4)", // lighter background
+            backgroundColor: "rgba(0, 0, 0, 0.4)",
             boxShadow: "0 8px 32px rgba(0,0,0,0.9)",
             backdropFilter: "blur(8px)",
             border: "1px solid rgba(255,255,255,0.1)",
           }}
         >
-          <Typography variant="h4" fontWeight="bold" sx={{ color: "#fff", mb: 2 }}>
+          <Typography
+            variant="h4"
+            fontWeight="bold"
+            sx={{
+              color: "#fff",
+              mb: 2,
+              fontSize: { xs: "1.5rem", sm: "2rem" },
+            }}
+          >
             Product Details
           </Typography>
           {product?.image && (
@@ -83,7 +94,11 @@ export default function ProductDetails() {
               }}
             />
           )}
-          <Typography variant="h5" fontWeight="bold" sx={{ color: "#fff" }}>
+          <Typography
+            variant="h5"
+            fontWeight="bold"
+            sx={{ color: "#fff", fontSize: { xs: "1.2rem", sm: "1.5rem" } }}
+          >
             {product?.name}
           </Typography>
           <Typography variant="body1" sx={{ mt: 1, color: "#ccc" }}>
@@ -96,11 +111,20 @@ export default function ProductDetails() {
               color: "#FACC15",
               fontFamily: "monospace",
               fontWeight: "bold",
+              fontSize: { xs: "1rem", sm: "1.2rem" },
             }}
           >
             Category: {product?.category}
           </Typography>
-          <Typography variant="h5" sx={{ mt: 2, color: "green", fontWeight: "bold" }}>
+          <Typography
+            variant="h5"
+            sx={{
+              mt: 2,
+              color: "green",
+              fontWeight: "bold",
+              fontSize: { xs: "1.2rem", sm: "1.5rem" },
+            }}
+          >
             ${product?.price}
           </Typography>
           <Box mt={3}>
@@ -108,9 +132,9 @@ export default function ProductDetails() {
               variant="contained"
               onClick={() => router.push("/cms/list")}
               sx={{
-                fontSize: 16,
-                px: 3,
-                py: 1,
+                fontSize: { xs: 14, sm: 16 },
+                px: { xs: 2, sm: 3 },
+                py: { xs: 0.8, sm: 1 },
                 backgroundColor: "#333",
                 "&:hover": { backgroundColor: "#555" },
               }}
