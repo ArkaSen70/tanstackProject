@@ -50,6 +50,7 @@ const Register = () => {
         alignItems: 'center',
         justifyContent: 'center',
         backdropFilter: 'blur(8px)',
+        p: { xs: 2, sm: 3 }
       }}
     >
       <motion.div
@@ -62,7 +63,7 @@ const Register = () => {
             backgroundColor: 'rgba(0, 0, 0, 0.4)',
             color: '#fff',
             width: { xs: '90%', sm: 400 },
-            p: 3,
+            p: { xs: 2, sm: 3 },
             borderRadius: 2,
             boxShadow: '0px 6px 16px rgba(0,0,0,0.5)',
             backdropFilter: 'blur(10px)',
@@ -126,7 +127,7 @@ const Register = () => {
                 color="primary"
                 fullWidth
                 disabled={isPending}
-                sx={{ mt: 2 }}
+                sx={{ mt: 2, py: 1 }}
               >
                 {isPending ? (
                   <motion.div

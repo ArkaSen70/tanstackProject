@@ -25,7 +25,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import GridViewIcon from "@mui/icons-material/GridView";
 import { useState } from "react";
-
 import { useQueryClient } from "@tanstack/react-query";
 import SweetAlertComponent from "@/ui/sweetalert";
 import { ToastContainer, toast } from "react-toastify";
@@ -38,7 +37,7 @@ import { listProps } from "@/typescript/cms.interface";
 export default function List() {
   const [page, setPage] = useState(1);
   const [isTableView, setIsTableView] = useState(false);
-  const perPage = 10;  
+  const perPage = 10;
   const queryClient = useQueryClient();
   const { data, isLoading, isError } = allProductsQuery(page, perPage);
   const { mutate: deleteMutate } = deleteMutation();
@@ -83,7 +82,7 @@ export default function List() {
           position: "relative",
           minHeight: "100vh",
           background: 'linear-gradient(135deg, rgba(30,45,70,0.95), rgba(40,55,80,0.95))',
-          padding: 4,
+          p: { xs: 2, sm: 3, md: 4 },
           overflow: "hidden",
         }}
       >
@@ -91,10 +90,10 @@ export default function List() {
         <Box
           sx={{
             position: "absolute",
-            top: "-50px",
-            left: "-50px",
-            width: 300,
-            height: 300,
+            top: { xs: "-20px", md: "-50px" },
+            left: { xs: "-20px", md: "-50px" },
+            width: { xs: 150, md: 300 },
+            height: { xs: 150, md: 300 },
             background: 'radial-gradient(circle, rgba(255,255,255,0.2), transparent 70%)',
             zIndex: 1,
             borderRadius: "50%",
@@ -103,10 +102,10 @@ export default function List() {
         <Box
           sx={{
             position: "absolute",
-            bottom: "-80px",
-            right: "-80px",
-            width: 400,
-            height: 400,
+            bottom: { xs: "-40px", md: "-80px" },
+            right: { xs: "-40px", md: "-80px" },
+            width: { xs: 250, md: 400 },
+            height: { xs: 250, md: 400 },
             background: 'radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%)',
             zIndex: 1,
             borderRadius: "50%",
@@ -115,19 +114,25 @@ export default function List() {
 
         {/* Main Content */}
         <Box sx={{ position: "relative", zIndex: 2 }}>
-          <Typography variant="h4" align="center" gutterBottom fontWeight="bold" sx={{ color: "#fff" }}>
+          <Typography
+            variant="h4"
+            align="center"
+            gutterBottom
+            fontWeight="bold"
+            sx={{ color: "#fff", fontSize: { xs: "1.8rem", md: "2.5rem" } }}
+          >
             Product List
           </Typography>
 
           <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
             <IconButton onClick={() => setIsTableView(!isTableView)} color="primary">
-              {isTableView ? <GridViewIcon /> : <ViewListIcon />}
+              {isTableView ? <GridViewIcon fontSize="large" /> : <ViewListIcon fontSize="large" />}
             </IconButton>
           </Box>
 
-          <Box sx={{ maxWidth: "1300px", margin: "0 auto", padding: "0 16px" }}>
+          <Box sx={{ maxWidth: { xs: "100%", md: "1300px" }, mx: "auto", px: { xs: 1, sm: 2, md: 4 } }}>
             {isLoading ? (
-              <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+              <Box display="flex" justifyContent="center" alignItems="center" height="50vh">
                 <CircularProgress sx={{ color: "#fff" }} />
               </Box>
             ) : isError ? (
@@ -143,53 +148,106 @@ export default function List() {
                     boxShadow: "0px 8px 20px rgba(0,0,0,0.8)",
                     backdropFilter: "blur(8px)",
                     color: "#fff",
+                    overflowX: "auto",
                   }}
                 >
                   <Table>
                     <TableHead>
                       <TableRow>
-                        <TableCell sx={{ color: "#fff" }}>Image</TableCell>
-                        <TableCell sx={{ color: "#fff" }}>Name</TableCell>
-                        <TableCell sx={{ color: "#fff" }}>Category</TableCell>
-                        <TableCell sx={{ color: "#fff" }}>Price</TableCell>
-                        <TableCell sx={{ color: "#fff" }}>Actions</TableCell>
+                        <TableCell sx={{ color: "#fff", borderBottom: "1px solid rgba(255,255,255,0.2)" }}>
+                          Image
+                        </TableCell>
+                        <TableCell sx={{ color: "#fff", borderBottom: "1px solid rgba(255,255,255,0.2)" }}>
+                          Name
+                        </TableCell>
+                        <TableCell sx={{ color: "#fff", borderBottom: "1px solid rgba(255,255,255,0.2)" }}>
+                          Category
+                        </TableCell>
+                        <TableCell sx={{ color: "#fff", borderBottom: "1px solid rgba(255,255,255,0.2)" }}>
+                          Price
+                        </TableCell>
+                        <TableCell sx={{ color: "#fff", borderBottom: "1px solid rgba(255,255,255,0.2)" }}>
+                          Actions
+                        </TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {products.map((product) => (
-                        <TableRow key={product._id}>
-                          <TableCell>
+                        <TableRow
+                          key={product._id}
+                          sx={{ borderBottom: "1px solid rgba(255,255,255,0.2)" }}
+                        >
+                          <TableCell sx={{ verticalAlign: "middle" }}>
                             <Box
                               component="img"
-                              src="/dummy-image.png"
-                              alt="dummy"
-                              sx={{ width: 50, height: 50, borderRadius: 1 }}
+                              src={product.image ? product.image : "/tianyi-ma-WiONHd_zYI4-unsplash.jpg"}
+                              alt={product.name || "dummy"}
+                              sx={{
+                                width: { xs: 40, md: 50 },
+                                height: { xs: 40, md: 50 },
+                                borderRadius: 1,
+                                objectFit: "cover",
+                              }}
                             />
                           </TableCell>
-                          <TableCell sx={{ color: "#fff" }}>{product.name}</TableCell>
-                          <TableCell sx={{ color: "#FACC15", fontFamily: "monospace", fontWeight: "bold" }}>
-                            Category: {product.category}
+                          <TableCell sx={{ verticalAlign: "middle", color: "#fff" }}>
+                            {product.name}
                           </TableCell>
-                          <TableCell sx={{ color: "#FACC15", fontFamily: "monospace", fontWeight: "bold" }}>
-                            Price: ${product.price}
+                          <TableCell
+                            sx={{
+                              verticalAlign: "middle",
+                              color: "#FACC15",
+                              fontFamily: "monospace",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            {product.category}
                           </TableCell>
-                          <TableCell>
+                          <TableCell
+                            sx={{
+                              verticalAlign: "middle",
+                              color: "#FACC15",
+                              fontFamily: "monospace",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            ${product.price}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              verticalAlign: "middle",
+                              borderBottom: "none",
+                              display: "flex",
+                              flexDirection: { xs: "column", sm: "row" },
+                              alignItems: "center",
+                              gap: 1,
+                            }}
+                          >
                             <IconButton
                               color="error"
                               onClick={() => {
                                 setDeleteId(product._id);
                                 setModal(true);
                               }}
+                              size="small"
                             >
-                              <DeleteIcon />
+                              <DeleteIcon fontSize="small" />
                             </IconButton>
-                            <IconButton color="primary" onClick={() => setEditProduct(product)}>
-                              <EditIcon />
+                            <IconButton
+                              color="primary"
+                              onClick={() => setEditProduct(product)}
+                              size="small"
+                            >
+                              <EditIcon fontSize="small" />
                             </IconButton>
                             <Button
                               variant="contained"
                               color="primary"
                               onClick={() => router.push(`/cms/details/${product._id}`)}
+                              sx={{
+                                fontSize: { xs: "0.7rem", sm: "0.8rem" },
+                                px: { xs: 0.5, sm: 1 },
+                              }}
                             >
                               View Details
                             </Button>
@@ -214,54 +272,96 @@ export default function List() {
                             backdropFilter: "blur(10px)",
                             boxShadow: "0px 8px 20px rgba(0,0,0,0.8)",
                             borderRadius: 3,
-                            height: "350px",
+                            height: { xs: "auto", md: "350px" },
                             display: "flex",
                             flexDirection: "column",
                             justifyContent: "space-between",
                             color: "#fff",
-                            padding: 2,
+                            p: { xs: 1, sm: 2 },
                           }}
                         >
                           <Box
                             component="img"
-                            src="/tianyi-ma-WiONHd_zYI4-unsplash.jpg"
-                            alt="dummy"
+                            src={product.image ? product.image : "/tianyi-ma-WiONHd_zYI4-unsplash.jpg"}
+                            alt={product.name || "dummy"}
                             sx={{
                               width: "100%",
-                              height: 140,
+                              height: { xs: 140, md: 140 },
                               objectFit: "cover",
                               borderRadius: 1,
-                              mb: 2,
+                              mb: 1,
                             }}
                           />
-                          <CardContent sx={{ flexGrow: 1, textAlign: "center" }}>
-                            <Typography gutterBottom variant="h6" fontWeight="bold">
+                          <CardContent
+                            sx={{
+                              flexGrow: 1,
+                              textAlign: "center",
+                              p: { xs: 1, sm: 2 },
+                            }}
+                          >
+                            <Typography
+                              gutterBottom
+                              variant="h6"
+                              fontWeight="bold"
+                              sx={{ fontSize: { xs: "1rem", md: "1.2rem" } }}
+                            >
                               {product.name}
                             </Typography>
-                            <Typography variant="body2" sx={{ color: "#FACC15", fontFamily: "monospace", fontWeight: "bold" }}>
+                            <Typography
+                              variant="body2"
+                              sx={{
+                                color: "#FACC15",
+                                fontFamily: "monospace",
+                                fontWeight: "bold",
+                                fontSize: { xs: "0.8rem", md: "0.9rem" },
+                              }}
+                            >
                               Price: ${product.price}
                             </Typography>
-                            <Typography variant="body2" sx={{ color: "#FACC15", fontFamily: "monospace", fontWeight: "bold" }}>
-                              Category: {product.category}
+                            <Typography
+                              variant="body2"
+                              sx={{
+                                color: "#FACC15",
+                                fontFamily: "monospace",
+                                fontWeight: "bold",
+                                fontSize: { xs: "0.8rem", md: "0.9rem" },
+                              }}
+                            >
+                              {product.category}
                             </Typography>
                           </CardContent>
-                          <Box display="flex" justifyContent="center" gap={2} p={2}>
+                          <Box
+                            display="flex"
+                            flexDirection={{ xs: "column", sm: "row" }}
+                            justifyContent="center"
+                            gap={1}
+                            sx={{ p: { xs: 1, sm: 2 } }}
+                          >
                             <IconButton
                               color="error"
                               onClick={() => {
                                 setDeleteId(product._id);
                                 setModal(true);
                               }}
+                              size="small"
                             >
-                              <DeleteIcon />
+                              <DeleteIcon fontSize="small" />
                             </IconButton>
-                            <IconButton color="primary" onClick={() => setEditProduct(product)}>
-                              <EditIcon />
+                            <IconButton
+                              color="primary"
+                              onClick={() => setEditProduct(product)}
+                              size="small"
+                            >
+                              <EditIcon fontSize="small" />
                             </IconButton>
                             <Button
                               variant="contained"
                               color="primary"
                               onClick={() => router.push(`/cms/details/${product._id}`)}
+                              sx={{
+                                fontSize: { xs: "0.7rem", sm: "0.8rem" },
+                                px: { xs: 0.5, sm: 1 },
+                              }}
                             >
                               View Details
                             </Button>
@@ -295,6 +395,7 @@ export default function List() {
                 open={!!editProduct}
                 onClose={() => setEditProduct(null)}
                 fullWidth
+                maxWidth="sm"
                 PaperProps={{
                   sx: {
                     backgroundColor: "rgba(0, 0, 0, 0.6)",

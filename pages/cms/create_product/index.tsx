@@ -2,15 +2,7 @@ import React from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { createProductMutation } from '@/customHooks/query/cms.query.hooks';
 import { createProps } from '@/typescript/cms.interface';
-import { 
-  Card, 
-  CardContent, 
-  TextField, 
-  Button, 
-  Typography, 
-  Box, 
-  CircularProgress 
-} from '@mui/material';
+import { Card, CardContent, TextField, Button, Typography, Box, CircularProgress } from '@mui/material';
 import { motion } from 'framer-motion';
 
 const CreateProduct = () => {
@@ -34,6 +26,7 @@ const CreateProduct = () => {
         alignItems: 'center',
         justifyContent: 'center',
         backdropFilter: 'blur(8px)',
+        p: 2,
       }}
     >
       <motion.div
@@ -45,11 +38,11 @@ const CreateProduct = () => {
           sx={{
             maxWidth: 500,
             width: { xs: '90%', sm: 500 },
-            p: 3,
-            backgroundColor: 'rgba(0, 0, 0, 0.3)', // Increased transparency
+            p: { xs: 2, sm: 3 },
+            backgroundColor: 'rgba(0, 0, 0, 0.3)',
             color: '#fff',
             borderRadius: 2,
-            boxShadow: '0px 8px 20px rgba(0, 0, 0, 0.8)', // Enhanced shadow effect
+            boxShadow: '0px 8px 20px rgba(0, 0, 0, 0.8)',
             backdropFilter: 'blur(10px)',
           }}
         >
@@ -111,6 +104,7 @@ const CreateProduct = () => {
                   color="primary"
                   fullWidth
                   disabled={isPending}
+                  sx={{ py: 1 }}
                 >
                   {isPending ? (
                     <motion.div
